@@ -6,9 +6,10 @@
 </head>
 <body>
     <div>
-        {% for news_title in news_titles %}
+        {% for news in newses %}
             <div>
-                <p>{{news_title}}</p>
+                <p>{{news['title']}}</p>
+                <a href={{news['url']}}>{{news['url']}}</a>
             </div>
         {%  endfor %}
     </div>

@@ -12,14 +12,15 @@ def index():
            'apiKey=74d7dc960a7f4b0f962a7f5a24516298')
     response = requests.get(url)
     news_dict_all = response.json()
-
-    news_titles = []
-    for news in news_dict_all["articles"]:
-        news_titles.append(news['title'])
-
-    return render_template('index.html', news_titles=news_titles)
-
+    newses = []
+    for news_dict in news_dict_all['articles']:
+        news = dict()
+        news['title'] = news_dict['title']
+        news['url'] = news_dict['url']
+        newses.append(news)
+    return render_template('index.html', newses=newses)
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=1300)
+    app.run(host='127.0.0.1', port=1300)
+
