@@ -1,8 +1,9 @@
 # server.py
-from flask import Flask
+from flask import Flask, render_template
 import requests
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
@@ -12,18 +13,13 @@ def index():
     response = requests.get(url)
     news_dict_all = response.json()
 
-    #text = news_dict["articles"][0]['title']
-    news_title = []
+    news_titles = []
     for news in news_dict_all["articles"]:
-        news_title.append(news['title'])
+        news_titles.append(news['title'])
 
-    news_title_text = ""
-    for news in news_dict_all["articles"]:
-        news_title_text += news['title'] + '<br>'
-    return str(news_title_text)
-
+    return render_template('index.html', news_titles=news_titles)
 
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host= '0.0.0.0',port=1300)
+    app.run(host='0.0.0.0', port=1300)
